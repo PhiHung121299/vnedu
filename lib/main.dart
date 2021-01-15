@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vnedu/view/Instruction.dart';
-
-import 'package:vnedu/view/page1.dart';
-
 void main() {
   runApp(MyApp());
 }
