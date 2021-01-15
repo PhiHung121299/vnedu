@@ -95,7 +95,8 @@ class GuiMail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -112,79 +113,110 @@ class GuiMail extends StatelessWidget {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.only(left: 20.0, right: 20.0),
+        margin: EdgeInsets.all(20),
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 0),
-              child: Image.asset(
-                'assets/mail.png',
-                width: 100,
-                height: 100,
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 15),
-              child: Text(
-                'Kiểm tra hòm thư',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.only(top: 15),
-              child: Text(
-                'Vui lòng nhập email của bạn để tiến hành khôi phục mật khẩu:',
-                style: TextStyle(fontSize: 13),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Container(
-              // decoration: BoxDecoration(
-              //     border: Border.all(style: BorderStyle.solid, width: 2,color: Colors.red[800])),
-              margin: EdgeInsets.only(top: 30.0),
-              child: Card(
-                color: Colors.red[800],
-                elevation: 0.0,
-                child: SizedBox(
-                  height: 40,
-                  child: InkWell(
-                    splashColor: Colors.white,
-                    onTap: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return CapNhatMatKhau();
-                      }));
-                      print("Gửi lại mail");
-                    },
-                    child: Row(
-                      children: const <Widget>[
-                        Expanded(
-                            child: Text(
-                          'Gửi email',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white),
-                        ))
-                      ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: height*0.08),
+                  child: Image.asset(
+                    'assets/mail.png',
+                    width: 100,
+                    height: 100,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: Text(
+                    'Kiểm tra hòm thư',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: Text(
+                    'Vui lòng nhập email của bạn để tiến hành khôi phục mật khẩu:',
+                    style: TextStyle(fontSize: 13),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Container(
+                  // decoration: BoxDecoration(
+                  //     border: Border.all(style: BorderStyle.solid, width: 2,color: Colors.red[800])),
+                  margin: EdgeInsets.only(top: 30.0),
+                  child: Container(
+                    height: 40,
+                    width: width * 0.4,
+
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Color(0xFFBB2634),
+                    ),
+                    child: InkWell(
+                      splashColor: Colors.white,
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return CapNhatMatKhau();
+                        }));
+                        print("Gửi lại mail");
+                      },
+                      child: Row(
+                        children: const <Widget>[
+                          Expanded(
+                              child: Text(
+                            'Gửi email',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ))
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
+                Container(
+                  margin: EdgeInsets.only(top: 15),
+                  child: new InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                        return ResetMatKhau();
+                      }));
+                      print("Reset mật khẩu");
+                    },
+                    child: Text(
+                      'Thử lại sau',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16, color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
-              margin: EdgeInsets.only(top: 15),
-              child: new InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return ResetMatKhau();
-                  }));
-                  print("Reset mật khẩu");
-                },
-                child: Text(
-                  'Thử lại sau',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
+              margin: EdgeInsets.only(top: 15, left: 20, right: 20),
+              child: RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  text: "Không nhận được email? Kiểm tra hòm thư spam của bạn hoặc ",
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Thử lại với một email khác',
+                      style: TextStyle(
+                        color: Colors.red,
+                      ),
+                    ),
+
+                  ],
                 ),
               ),
             ),

@@ -34,6 +34,14 @@ dependencies:
   custom_dialog: ^0.0.2
   rflutter_alert: ^1.0.3
   carousel_slider: ^2.3.1
+  carousel_pro: ^1.0.0
+  table_calendar: ^2.2.3
+  timezone: ^0.5.2
+  intl: ^0.16.0
+  flutter_datetime_picker: ^1.4.0
+  syncfusion_flutter_calendar: ^18.4.34
+  flutter_svg:
+
 
 dev_dependencies:
   flutter_test:

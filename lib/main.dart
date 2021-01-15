@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vnedu/view/Instruction.dart';
 
 import 'package:vnedu/view/page1.dart';
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primaryColor: Color(0xFFBB2634),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
@@ -57,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
             margin: EdgeInsets.only(left: 40.0,right: 40.0),
             child: Text(
               'Giúp bạn phát triển sự nghiệp và hoàn thiện kiến thức của bản thân với hàng ngàn khóa học Online.Học mọi lúc, mọi nơi',
-              textAlign: TextAlign.center,
+              textAlign: TextAlign.center,style: TextStyle(fontSize: 13,),
             ),
           ),
           Card(
@@ -72,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) {
-                          return Loginpage1();
+                          return OnBoading();
                         }));
                     print("Reset mật khẩu");
 
@@ -95,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Text(
               'Liên hệ giáo viên phụ trách để được cấp tài khoản đăng nhập',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 8),
+              style: TextStyle(fontSize: 12),
             ),
           ),
         ],

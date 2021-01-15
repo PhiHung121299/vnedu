@@ -12,19 +12,28 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  bool _showPassword = false;
+  bool _isHidden = true;
+
+  void _toggleVisibility() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     goBack(BuildContext context) {
       Navigator.pop(context);
     }
 
     void showAlerDialog(BuildContext context) {
-      showDialog(context: context, builder: (BuildContext context) {
-
-        return CustomDialog();
-      });
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CustomDialog();
+          });
     }
 
     void chuyen() {
@@ -52,108 +61,67 @@ class _LoginState extends State<Login> {
           },
         ),
       ),
-      body: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            child: Image.asset(
-              'assets/homemain.png',
-              width: 150,
-              height: 150,
+      body: Container(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              child: Image.asset(
+                'assets/homemain.png',
+                width: 150,
+                height: 150,
+              ),
             ),
-          ),
-          Column(
-            children: [
-              Container(
-                margin: EdgeInsets.only(left: 20, right: 20),
-                child: Image.asset(
-                  'assets/homebt.png',
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(top: 20, left: 20, right: 20),
-                child: Text(
-                  'hoặc sử dụng tài khoản được cấp',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 20.0, right: 20.0),
-            child: Column(
+            Column(
               children: [
-                TextField(
-                  decoration: InputDecoration(
-                    labelText: 'Tên đăng nhập',
-                    prefixIcon: const Icon(Icons.person_outline),
+                Container(
+                  margin: EdgeInsets.only(left: 20, right: 20),
+                  child: Image.asset(
+                    'assets/homebt.png',
                   ),
                 ),
-                TextField(
-                  obscureText: !this._showPassword,
-                  decoration: InputDecoration(
-                    labelText: 'Mật khẩu',
-                    prefixIcon: const Icon(Icons.https_outlined),
-                    suffixIcon: IconButton(
-                      icon: Icon(
-                        Icons.remove_red_eye,
-                        color: this._showPassword ? Colors.blue : Colors.grey,
-                      ),
-                      onPressed: () {},
+                Container(
+                  margin: EdgeInsets.only(left: 20, right: 20),
+                  child: Text(
+                    'hoặc sử dụng tài khoản được cấp',
+                    style: TextStyle(
+                      fontSize: 13,
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],
             ),
-          ),
-          Card(
-            color: Colors.red[700],
-            margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-            elevation: 0.0,
-            child: SizedBox(
+            Container(
+              margin: EdgeInsets.only(top: 20, left: 20, right: 20),
+              child: Column(
+                children: [
+                  buildTextField("Email"),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  buildTextField("Mật khẩu"),
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(left: 20, right: 20),
               height: 40,
+              width: width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                color: Color(0xFFBB2634),
+              ),
               child: InkWell(
                 splashColor: Colors.white,
-                 onTap: () {
-                   showDialog(
-                     context: context,
-                     child: DialogChonTruong(),
-                     barrierDismissible: false,
-                   );
-                //   showDialog(
-                //       context: context,
-                //       builder: (BuildContext context) {
-                //         return Dialog(
-                //           shape: RoundedRectangleBorder(
-                //               borderRadius: BorderRadius.circular(
-                //                   20.0)), //this right here
-                //           child: Container(
-                //             height: 200,
-                //             child: Padding(
-                //               padding: const EdgeInsets.all(12.0),
-                //               child: Column(
-                //                 mainAxisAlignment: MainAxisAlignment.center,
-                //                 crossAxisAlignment: CrossAxisAlignment.start,
-                //                 children: [
-                //                   SizedBox(
-                //                     width: 320.0,
-                //                     child: RaisedButton(
-                //                       onPressed: () {},
-                //                       child: Text(
-                //                         "Save",
-                //                         style: TextStyle(color: Colors.white),
-                //                       ),
-                //                       color: const Color(0xFF1BC0C5),
-                //                     ),
-                //                   )
-                //                 ],
-                //               ),
-                //             ),
-                //           ),
-                //         );
-                //       });
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    child: DialogChonTruong(),
+                    barrierDismissible: false,
+                  );
                 },
                 child: Row(
                   children: const <Widget>[
@@ -167,31 +135,55 @@ class _LoginState extends State<Login> {
                 ),
               ),
             ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Container(
-                margin: EdgeInsets.only(right: 40.0),
-                child: new InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return ResetMatKhau();
-                    }));
-                    print("Reset mật khẩu");
-                  },
-                  child: Text(
-                    'Quên mật khẩu tài khoản được cấp?',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 12, color: Colors.red),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(right: 40.0),
+                  child: new InkWell(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ResetMatKhau();
+                      }));
+                      print("Reset mật khẩu");
+                    },
+                    child: Text(
+                      'Quên mật khẩu tài khoản được cấp?',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 13, color: Colors.red),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
+    );
+  }
+
+  Widget buildTextField(String hintText) {
+    return TextField(
+      decoration: InputDecoration(
+        hintText: hintText,
+        hintStyle: TextStyle(
+          color: Colors.grey,
+          fontSize: 16.0,
+        ),
+        prefixIcon: hintText == "Email"
+            ? Icon(Icons.person_outline)
+            : Icon(Icons.lock_outline),
+        suffixIcon: hintText == "Mật khẩu"
+            ? IconButton(
+                onPressed: _toggleVisibility,
+                icon: _isHidden
+                    ? Icon(Icons.visibility_off)
+                    : Icon(Icons.visibility),
+              )
+            : null,
+      ),
+      obscureText: hintText == "Mật khẩu" ? _isHidden : false,
     );
   }
 }
